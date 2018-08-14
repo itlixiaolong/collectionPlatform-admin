@@ -3,7 +3,7 @@
     <el-breadcrumb-item
       v-for="(item, index) in menuList"
       :key="index"
-      :to="{path: item.path}"
+      :to="{path: item.path?item.path:'/'}"
     >
       {{ item.name }}
     </el-breadcrumb-item>
@@ -30,5 +30,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

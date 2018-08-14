@@ -4,6 +4,23 @@ export const router = [
     // component: Home,
     children: [
       {
+        path: '/product',
+        name: '产品管理',
+        redirect: '/product-list',
+        children: [
+          {
+            path: '/product-list',
+            name: '产品列表'
+            // component: ProductList
+          },
+          {
+            path: '/product-add',
+            name: '添加产品'
+            // component: ProductList
+          }
+        ]
+      },
+      {
         path: '/userrights',
         name: '版权管理',
         // component: MainBox,

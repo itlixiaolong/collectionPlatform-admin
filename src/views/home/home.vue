@@ -1,6 +1,6 @@
 <template>
   <section
-    :style="{height:clientHeight+'px'}"
+    :style="{height:calculateHeight}"
     class="container">
     <header class="header">
       <div class="system">
@@ -26,14 +26,18 @@
       </ul>
     </header>
     <section class="content">
-      <aside class="aside">
+      <aside
+        ref="aside"
+        class="aside">
         <nav-menu
           :collapse="iscollapse"
           :menu-data="menuData"
           :default-active="$route.path"
         />
       </aside>
-      <section class="right-section">
+      <section
+        :style="{width:`${calculateWidth+40}px`}"
+        class="right-section">
         <header class="section-header">
           <span
             :class="iscollapse?'icon-open':'icon-close'"
@@ -41,7 +45,9 @@
             @click="handleMenuStatus"></span>
           <bread-crumb :menu-list="menuList"/>
         </header>
-        <div class="section-view">
+        <div
+          :style="{width:`${calculateWidth}px`}"
+          class="section-view">
           <router-view/>
         </div>
       </section>
@@ -63,12 +69,18 @@ export default {
   data () {
     return {
       menuData: router,
-      iscollapse: false
+      iscollapse: false,
+      leftPx: 200,
+      innerWidth: window.innerWidth,
+      innerHeight: window.innerHeight
     }
   },
   computed: {
-    clientHeight () {
-      return window.innerHeight
+    calculateHeight () {
+      return `${this.innerHeight - 20}px`
+    },
+    calculateWidth () {
+      return this.innerWidth - this.leftPx
     },
     menuList () {
       return this.$route.matched
@@ -86,10 +98,16 @@ export default {
   created () {
     // this.menu = routerList
   },
+  mounted () {
+    window.onresize = () => {
+      this.innerWidth = window.innerWidth
+      this.innerHeight = window.innerHeight
+    }
+  },
   methods: {
-    calculateClientHeight () {},
     handleMenuStatus () {
       this.iscollapse = !this.iscollapse
+      this.iscollapse ? (this.leftPx = 64) : (this.leftPx = 200)
     }
   }
 }
@@ -101,13 +119,12 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
-  // background-color: #324057f3;
 }
 .header {
-  flex: 0 0 70px;
+  flex: 0 0 60px;
   display: flex;
   justify-content: space-between;
-  line-height: 70px;
+  line-height: 60px;
   border-bottom: 1px solid #000;
   background-color: #334057;
   .system {
@@ -151,15 +168,11 @@ export default {
     background-color: #334057;
   }
   .right-section {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
     .section-header {
+      height: 45px;
       width: 100%;
-      height: 40px;
       display: flex;
       align-items: center;
-      margin-bottom: 5px;
       background-color: #eff2f7;
       .control-Icon {
         margin: 10px;
@@ -167,6 +180,11 @@ export default {
         font-size: 20px;
         color: #000;
       }
+    }
+    .section-view {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 20px 20px;
     }
   }
 }

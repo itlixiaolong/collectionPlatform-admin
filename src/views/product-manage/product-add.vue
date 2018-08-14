@@ -1,0 +1,136 @@
+<template>
+  <div class="product-add">
+    <el-form
+      :model="ruleForm"
+      :rules="rules"
+      label-width="350px"
+      class="demo-ruleForm">
+      <el-form-item
+        label="产品所属行业"
+        prop="region">
+        <el-select
+          v-model="ruleForm.trade"
+          placeholder="请选择产品所属行业">
+          <el-option
+            label="教育"
+            value="0"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item
+        label="产品所属地区"
+        prop="region">
+        <el-select
+          v-model="ruleForm.region"
+          placeholder="请选择产品所属地区">
+          <el-option
+            label="华北"
+            value="shanghai"/>
+          <el-option
+            label="东北"
+            value="beijing"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item
+        label="产品名称"
+        prop="name">
+        <el-input v-model="ruleForm.name"/>
+      </el-form-item>
+      <el-form-item
+        label="产品状态"
+        prop="status">
+        <el-select
+          v-model="ruleForm.status"
+          placeholder="请选择目前状态">
+          <el-option
+            label="演示版本"
+            value="shanghai"/>
+          <el-option
+            label="企业版本"
+            value="beijing"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item
+        label="产品logo"
+        prop="logo">
+        <el-upload
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          action="https://jsonplaceholder.typicode.com/posts/"
+          list-type="picture-card">
+          <i class="el-icon-plus"></i>
+        </el-upload>
+        <el-dialog :visible.sync="dialogVisible">
+          <img
+            :src="dialogImageUrl"
+            width="100%"
+            alt="">
+        </el-dialog>
+      </el-form-item>
+      <div class="btn-wrapper">
+        <el-button type="success">确定</el-button>
+        <el-button type="warning">取消</el-button>
+      </div>
+    </el-form>
+
+  </div>
+</template>
+
+<script type="text/ecmascript-6">
+export default {
+  name: 'ProductAdd',
+
+  data () {
+    return {
+      dialogVisible: false,
+      dialogImageUrl: '',
+      ruleForm: {
+        trade: '',
+        region: '',
+        name: '',
+        status: ''
+      },
+      rules: {
+        name: [
+          { required: true, message: '请输入活动名称', trigger: 'blur' },
+          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+        ],
+        region: [
+          { required: true, message: '请选择活动区域', trigger: 'change' }
+        ],
+        status: [
+          { required: true, message: '请选择活动资源', trigger: 'change' }
+        ],
+        trade: [{ required: true, message: '请填写活动形式', trigger: 'blur' }]
+      }
+    }
+  },
+  methods: {
+    handleRemove (file, fileList) {
+      console.log(file, fileList)
+    },
+    handlePreview (file) {
+      this.dialogImageUrl = file.url
+      this.dialogVisible = true
+      console.log(file)
+      alert(1)
+    }
+  }
+}
+</script>
+
+<style scoped lang="less">
+.product-add {
+  padding: 40px;
+  .el-select,
+  .el-input {
+    width: 50%;
+  }
+  .btn-wrapper {
+    width: 20%;
+    margin-top: 50px;
+    margin-left: 450px;
+    display: flex;
+    justify-content: space-around;
+  }
+}
+</style>

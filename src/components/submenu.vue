@@ -46,19 +46,30 @@ export default {
 </script>
 
 <style>
-.sub-menu .el-submenu li,
-.el-submenu__title {
-  color: #838fa9;
+.el-submenu .menu-text,
+.el-submenu .el-menu-item {
+  color: #838fa9 !important;
+}
+.el-submenu.is-active .el-submenu__title .menu-text {
+  /* background-color: #2c2727; */
+  color: #fff !important;
 }
 .el-submenu .el-submenu__title:hover {
   /* color: #111 !important; */
-  background-color: rgb(50, 64, 87);
+  background-color: #000;
+  color: #fff !important;
 }
-.el-menu-item:hover {
-  /* color: #111 !important; */
-  background-color: rgb(50, 64, 87);
+.el-submenu.is-active .el-menu-item.is-active {
+  background-color: #000;
+  color: #fff !important;
 }
-.el-menu--collapse .menu-text {
+.el-menu .sub-menu .el-menu-item:hover,
+.el-menu .sub-menu .el-menu-item:focus {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+.el-menu--collapse .menu-text,
+.el-menu--collapse .el-submenu__icon-arrow {
   visibility: hidden;
   /* transition: all 0.5s ease; */
 }
