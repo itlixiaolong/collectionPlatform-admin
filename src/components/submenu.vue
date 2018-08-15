@@ -9,7 +9,9 @@
         :index="subMenu.path"
         :route="subMenu.path"
       >
-        <!-- <i class="el-icon-setting"></i> -->
+        <i
+          :class="subMenu.icon"
+          class="icon-level2 icon"></i>
         <span slot="title">{{ subMenu.name }}</span>
       </el-menu-item>
       <!-- 有二级菜单 -->
@@ -17,7 +19,9 @@
         v-if="subMenu.children&&subMenu.children.length&&subMenu.children.length>0"
         :index="subMenu.path">
         <template slot="title">
-          <i class="el-icon-setting"></i>
+          <i
+            :class="subMenu.icon"
+            class="icon-leval1 icon"></i>
           <span class="menu-text"> {{ subMenu.name }}</span>
         </template>
         <SubMenu :sub-menus="subMenu.children"/>
@@ -46,13 +50,43 @@ export default {
 </script>
 
 <style>
+@import url("../assets/style.css");
+.icon-leval1,
+.icon-level2 {
+  font-size: 20px;
+  margin-right: 10px;
+}
+.icon-playlist_add,
+.icon-playlist_add_check {
+  font-size: 22px;
+  margin-right: 8px;
+}
+.icon-format_list_numbered {
+  font-size: 16px;
+  margin-right: 14px;
+}
+.icon-stack,
+.icon-files-empty {
+  font-size: 16px;
+  margin-right: 14px;
+}
+.icon-indent-increase,
+.icon-files-empty {
+  font-size: 14px;
+  margin-right: 16px;
+}
+.icon-git {
+  font-size: 16px;
+  margin-right: 14px;
+}
+
 .el-submenu .menu-text,
 .el-submenu .el-menu-item {
-  color: #838fa9 !important;
+  color: #f4f0f0 !important;
 }
 .el-submenu.is-active .el-submenu__title .menu-text {
   /* background-color: #2c2727; */
-  color: #fff !important;
+  /* color: rgb(255, 255, 255) !important; */
 }
 .el-submenu .el-submenu__title:hover {
   /* color: #111 !important; */
@@ -61,7 +95,7 @@ export default {
 }
 .el-submenu.is-active .el-menu-item.is-active {
   background-color: #000;
-  color: #fff !important;
+  /* color: #fff !important; */
 }
 .el-menu .sub-menu .el-menu-item:hover,
 .el-menu .sub-menu .el-menu-item:focus {

@@ -5,9 +5,17 @@
         v-model="productName"
         placeholder="请输入产品名称"
         clearable/>
+      <el-input
+        v-model="productName"
+        placeholder="请输入申请人"
+        clearable/>
+      <el-input
+        v-model="productName"
+        placeholder="请输入审批人"
+        clearable/>
       <el-select
         v-model="productStatus"
-        placeholder="请选择产品状态"
+        placeholder="请选择审批状态"
         clearable>
         <el-option
           v-for="item in status"
@@ -15,26 +23,7 @@
           :label="item.label"
           :value="item.value"/>
       </el-select>
-      <el-select
-        v-model="productRegion"
-        placeholder="请选择产品所属地区"
-        clearable>
-        <el-option
-          v-for="item in regions"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"/>
-      </el-select>
-      <el-select
-        v-model="productTrade"
-        placeholder="请选择产品所属地区"
-        clearable>
-        <el-option
-          v-for="item in trades"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"/>
-      </el-select>
+
       <el-button>查询</el-button>
     </div>
     <div class="product-table">
@@ -59,7 +48,7 @@
         />
         <el-table-column
           prop="name"
-          label="产品LOGO"
+          label="产品名称"
           align="center"
           show-overflow-tooltip
         >
@@ -67,29 +56,21 @@
         </el-table-column>
         <el-table-column
           prop="address"
-          label="产品名称"
+          label="审批状态"
           align="center"
-          show-overflow-tooltip>
-          <template slot-scope="scope">{{ scope.row.cnName }}</template>
-        </el-table-column>
-        <el-table-column
-          prop="address"
-          label="状态"
-          align="center"
-          class-name="copyBtnParent"
           show-overflow-tooltip>
           <template slot-scope="scope">{{ scope.row.sshUrlToRepo }}</template>
         </el-table-column>
         <el-table-column
           prop="address"
-          label="最新版本"
+          label="申请人"
           align="center"
           show-overflow-tooltip>
           <template slot-scope="scope">{{ scope.row.projectType }}</template>
         </el-table-column>
         <el-table-column
           prop="address"
-          label="下载二维码"
+          label="授权公司"
           align="center"
           show-overflow-tooltip>
           <template slot-scope="scope">
@@ -103,6 +84,22 @@
           </template>
         </el-table-column>
         <el-table-column
+          prop="name"
+          label="审批人"
+          align="center"
+          show-overflow-tooltip
+        >
+          <template slot-scope="scope">{{ scope.row.projectType }}</template>
+        </el-table-column>
+        <el-table-column
+          prop="name"
+          label="审批时间"
+          align="center"
+          show-overflow-tooltip
+        >
+          <template slot-scope="scope">{{ scope.row.projectType }}</template>
+        </el-table-column>
+        <el-table-column
           prop="address"
           label="操作"
           align="center"
@@ -114,13 +111,13 @@
             <div class="btn-weapper">
               <el-button
                 type="primary"
-                size="mini">修改</el-button>
+                size="mini">查看</el-button>
               <el-button
                 type="danger"
                 size="mini">删除</el-button>
               <el-button
                 type="success"
-                size="mini">历史版本管理</el-button>
+                size="mini">下载license</el-button>
             </div>
           </template>
         </el-table-column>

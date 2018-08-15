@@ -1,36 +1,20 @@
 <template>
-  <div class="product-list">
+  <div class="version-history">
     <div class="search-box">
       <el-input
         v-model="productName"
         placeholder="请输入产品名称"
         clearable/>
-      <el-select
-        v-model="productStatus"
-        placeholder="请选择产品状态"
-        clearable>
-        <el-option
-          v-for="item in status"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"/>
-      </el-select>
+      <el-input
+        v-model="productName"
+        placeholder="请输入产品版本"
+        clearable/>
       <el-select
         v-model="productRegion"
-        placeholder="请选择产品所属地区"
+        placeholder="请选择语言 "
         clearable>
         <el-option
           v-for="item in regions"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"/>
-      </el-select>
-      <el-select
-        v-model="productTrade"
-        placeholder="请选择产品所属地区"
-        clearable>
-        <el-option
-          v-for="item in trades"
           :key="item.value"
           :label="item.label"
           :value="item.value"/>
@@ -59,7 +43,15 @@
         />
         <el-table-column
           prop="name"
-          label="产品LOGO"
+          label="产品Logo"
+          align="center"
+          show-overflow-tooltip
+        >
+          <template slot-scope="scope">{{ `${scope.row.namespace}/${scope.row.projectName}` }}</template>
+        </el-table-column>
+        <el-table-column
+          prop="name"
+          label="产品名称"
           align="center"
           show-overflow-tooltip
         >
@@ -67,29 +59,14 @@
         </el-table-column>
         <el-table-column
           prop="address"
-          label="产品名称"
-          align="center"
-          show-overflow-tooltip>
-          <template slot-scope="scope">{{ scope.row.cnName }}</template>
-        </el-table-column>
-        <el-table-column
-          prop="address"
-          label="状态"
-          align="center"
-          class-name="copyBtnParent"
-          show-overflow-tooltip>
-          <template slot-scope="scope">{{ scope.row.sshUrlToRepo }}</template>
-        </el-table-column>
-        <el-table-column
-          prop="address"
-          label="最新版本"
+          label="版本号"
           align="center"
           show-overflow-tooltip>
           <template slot-scope="scope">{{ scope.row.projectType }}</template>
         </el-table-column>
         <el-table-column
           prop="address"
-          label="下载二维码"
+          label="基线"
           align="center"
           show-overflow-tooltip>
           <template slot-scope="scope">
@@ -104,6 +81,20 @@
         </el-table-column>
         <el-table-column
           prop="address"
+          label="基线版本"
+          align="center"
+          show-overflow-tooltip>
+          <template slot-scope="scope">{{ scope.row.projectType }}</template>
+        </el-table-column>
+        <el-table-column
+          prop="address"
+          label="下载二维码"
+          align="center"
+          show-overflow-tooltip>
+          <template slot-scope="scope">{{ scope.row.projectType }}</template>
+        </el-table-column>
+        <el-table-column
+          prop="address"
           label="操作"
           align="center"
           fixed="right"
@@ -111,16 +102,13 @@
           show-overflow-tooltip
         >
           <template slot-scope="scope">
-            <div class="btn-weapper">
+            <div class="btn-wrapper">
               <el-button
                 type="primary"
                 size="mini">修改</el-button>
               <el-button
                 type="danger"
                 size="mini">删除</el-button>
-              <el-button
-                type="success"
-                size="mini">历史版本管理</el-button>
             </div>
           </template>
         </el-table-column>
@@ -143,7 +131,7 @@
 
 <script type="text/ecmascript-6">
 export default {
-  name: 'ProductList',
+  name: 'ProjectVersionHistory',
   data () {
     return {
       // 搜索条件数据
@@ -389,7 +377,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-.product-list {
+.version-history {
   .search-box {
     width: 70%;
     display: flex;
@@ -397,7 +385,7 @@ export default {
     align-items: center;
     .el-input,
     .el-select {
-      width: 22%;
+      width: 30%;
     }
   }
   .product-table {
@@ -406,7 +394,7 @@ export default {
     padding: 20px 0px;
     .el-table {
       width: 100%;
-      .btn-weapper {
+      .btn-wrapper {
         display: flex;
         justify-content: space-around;
       }

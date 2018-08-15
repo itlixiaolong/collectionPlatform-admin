@@ -13,11 +13,11 @@
       </div>
       <ul class="user-info">
         <li class="user-name">
-          用户：
+          <span class="icon-user"></span>
           <span>李小龙</span>
         </li>
         <li class="user-department">
-          所属部门：
+          <span class="icon-tree"></span>
           <span >总集成部</span>
         </li>
         <li class="user-quit">
@@ -40,7 +40,7 @@
         class="right-section">
         <header class="section-header">
           <span
-            :class="iscollapse?'icon-open':'icon-close'"
+            :class="iscollapse?'icon-point-right':'icon-point-left'"
             class="control-Icon"
             @click="handleMenuStatus"></span>
           <bread-crumb :menu-list="menuList"/>
@@ -153,6 +153,17 @@ export default {
     color: #fff;
     li {
       padding: 0 10px;
+      .icon-user,
+      .icon-tree {
+        color: aquamarine;
+        font-size: 20px;
+        position: relative;
+        top: 1px;
+        right: 3px;
+      }
+      .icon-tree {
+        color: #409eff;
+      }
     }
     .user-quit:hover {
       color: #66b1ff;
@@ -175,7 +186,7 @@ export default {
       align-items: center;
       background-color: #eff2f7;
       .control-Icon {
-        margin: 10px;
+        margin: 6px 10px 10px 10px;
         cursor: pointer;
         font-size: 20px;
         color: #000;

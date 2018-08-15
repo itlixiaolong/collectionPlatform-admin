@@ -71,7 +71,4 @@ export default {
   background: #324057f3 !important;
   border-right: none;
 }
-.el-menu-item span {
-  margin-left: 13px;
-}
 </style>

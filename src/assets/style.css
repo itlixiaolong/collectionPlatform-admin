@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'icomoon';
-  src: url('./fonts/icomoon.eot?fu8i8u');
-  src: url('./fonts/icomoon.eot?fu8i8u#iefix') format('embedded-opentype'), url('./fonts/icomoon.ttf?fu8i8u') format('truetype'), url('./fonts/icomoon.woff?fu8i8u') format('woff'), url('./fonts/icomoon.svg?fu8i8u#icomoon') format('svg');
+  src: url('./fonts/icomoon.eot?pf2rau');
+  src: url('./fonts/icomoon.eot?pf2rau#iefix') format('embedded-opentype'), url('./fonts/icomoon.ttf?pf2rau') format('truetype'), url('./fonts/icomoon.woff?pf2rau') format('woff'), url('./fonts/icomoon.svg?pf2rau#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -21,11 +21,135 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-close:before {
+.icon-load-balancer:before {
   content: "\e900";
 }
 
-.icon-open:before {
+.icon-user2:before {
   content: "\e901";
+}
+
+.icon-log-out:before {
+  content: "\e902";
+}
+
+.icon-shopping-bag:before {
+  content: "\e903";
+}
+
+.icon-sign-out:before {
+  content: "\e904";
+}
+
+.icon-user-circle:before {
+  content: "\e905";
+}
+
+.icon-shopping-bag2:before {
+  content: "\e906";
+}
+
+.icon-person:before {
+  content: "\e907";
+}
+
+.icon-playlist_add_check:before {
+  content: "\e908";
+}
+
+.icon-playlist_add:before {
+  content: "\e909";
+}
+
+.icon-format_list_numbered:before {
+  content: "\e90a";
+}
+
+.icon-close:before {
+  content: "\e90b";
+}
+
+.icon-open:before {
+  content: "\e90c";
   color: #13227a;
+}
+
+.icon-file-text:before {
+  content: "\e922";
+}
+
+.icon-files-empty:before {
+  content: "\e925";
+}
+
+.icon-copy:before {
+  content: "\e92c";
+}
+
+.icon-stack:before {
+  content: "\e92e";
+}
+
+.icon-barcode:before {
+  content: "\e937";
+}
+
+.icon-user:before {
+  content: "\e971";
+}
+
+.icon-users:before {
+  content: "\e972";
+}
+
+.icon-briefcase:before {
+  content: "\e9ae";
+}
+
+.icon-list-numbered:before {
+  content: "\e9b9";
+}
+
+.icon-tree:before {
+  content: "\e9bc";
+}
+
+.icon-download2:before {
+  content: "\e9c5";
+}
+
+.icon-upload2:before {
+  content: "\e9c6";
+}
+
+.icon-point-right:before {
+  content: "\ea04";
+}
+
+.icon-point-left:before {
+  content: "\ea06";
+}
+
+.icon-exit:before {
+  content: "\ea14";
+}
+
+.icon-indent-increase:before {
+  content: "\ea7b";
+}
+
+.icon-indent-decrease:before {
+  content: "\ea7c";
+}
+
+.icon-dropbox:before {
+  content: "\eaae";
+}
+
+.icon-stackoverflow:before {
+  content: "\ead0";
+}
+
+.icon-git:before {
+  content: "\eae7";
 }
