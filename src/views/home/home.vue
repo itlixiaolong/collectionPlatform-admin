@@ -8,7 +8,6 @@
           src="../../../static/img/logo.png"
           width="50"
           height="50">
-        <!-- <span class="el-icon-menu icon"></span> -->
         <p class="system-name">总集平台</p>
       </div>
       <ul class="user-info">
@@ -70,7 +69,7 @@ export default {
     return {
       menuData: router,
       iscollapse: false,
-      leftPx: 200,
+      leftPx: 220,
       innerWidth: window.innerWidth,
       innerHeight: window.innerHeight
     }
@@ -107,7 +106,7 @@ export default {
   methods: {
     handleMenuStatus () {
       this.iscollapse = !this.iscollapse
-      this.iscollapse ? (this.leftPx = 64) : (this.leftPx = 200)
+      this.iscollapse ? (this.leftPx = 64) : (this.leftPx = 220)
     }
   }
 }
@@ -194,6 +193,8 @@ export default {
     }
     .section-view {
       width: 100%;
+      // height: 100%;
+      // overflow-y: auto;
       box-sizing: border-box;
       padding: 10px 20px 20px;
     }

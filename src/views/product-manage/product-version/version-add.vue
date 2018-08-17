@@ -1,6 +1,7 @@
 <template>
   <div class="version-add">
     <el-form
+      ref="ruleForm"
       :model="form"
       :rules="rules"
       label-width="350px"
@@ -12,22 +13,24 @@
           v-model="form.product"
           placeholder="请选择产品">
           <el-option
-            label="e福州"
+            label="甜心宝贝"
             value="0"/>
         </el-select>
       </el-form-item>
       <el-form-item
         label="版本"
-        prop="name">
-        <el-input v-model="form.company"/>
+        prop="version">
+        <el-input
+          v-model="form.version"
+          placeholder="请填写产品版本"/>
       </el-form-item>
 
       <el-form-item
-        label="选择产品"
-        prop="product">
+        label="选择产品语言"
+        prop="language">
         <el-select
-          v-model="form.type"
-          placeholder="语言">
+          v-model="form.language"
+          placeholder="请填写产品语言">
           <el-option
             label="android"
             value="shanghai"/>
@@ -38,69 +41,108 @@
       </el-form-item>
       <el-form-item
         label="基线"
-        prop="type">
+        prop="baseLine">
         <el-select
-          v-model="form.type"
-          placeholder="请选择产品版本">
+          v-model="form.baseLine"
+          placeholder="请选择产品基线">
           <el-option
-            label="toon"
-            value="shanghai"/>
+            label="apple"
+            value="0"/>
           <el-option
-            label="toon2"
-            value="beijing"/>
+            label="banana"
+            value="1"/>
         </el-select>
       </el-form-item>
       <el-form-item
         label="基线版本"
-        prop="type">
+        prop="baseLineVersion">
         <el-select
-          v-model="form.type"
+          v-model="form.baseLineVersion"
           placeholder="请选择基线版本">
           <el-option
             label="试用版本"
-            value="shanghai"/>
+            value="0"/>
           <el-option
             label="正式版本"
-            value="beijing"/>
+            value="1"/>
         </el-select>
       </el-form-item>
       <el-form-item
         label="下载链接"
-        prop="name">
-        <el-input v-model="form.company"/>
+        prop="link">
+        <el-input
+          v-model="form.link"
+          placeholder="请填写下载链接"/>
       </el-form-item>
     </el-form>
     <div class="btn-wrapper">
       <el-button
         type="success"
-        @click="handleClickAdd">
-        添加
-      </el-button>
+        @click="handleClickAdd('ruleForm')">添加</el-button>
+      <el-button
+        type="warning"
+        @click="handleReset('ruleForm')">重置</el-button>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import { postProductVersionAddData } from '../../../api/product'
 export default {
   name: 'ProjectVersionAdd',
   data () {
     return {
       form: {
         product: '',
-        type: '',
-        startTime: '',
-        endTime: '',
-        company: '',
-        reason: '',
-        btnText: '申请',
-        isEdit: false
+        version: '',
+        language: '',
+        baseLine: '',
+        baseLineVersion: '',
+        link: ''
       },
-      rules: {}
+      rules: {
+        product: [{ required: true, message: '请选择产品', trigger: 'change' }],
+        version: [
+          { required: true, message: '请输入产品版本', trigger: 'blur' }
+        ],
+        language: [
+          { required: true, message: '请选择产品语言', trigger: 'change' }
+        ],
+        baseLine: [
+          { required: true, message: '请选择产品基线', trigger: 'change' }
+        ],
+        baseLineVersion: [
+          { required: true, message: '请选择产品基线版本', trigger: 'change' }
+        ],
+        link: [{ required: true, message: '请填写下载链接', trigger: 'blur' }]
+      }
     }
   },
   methods: {
-    handleClickAdd () {
-      this.$emit('backFormData', this.formData)
+    handleClickAdd (formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this._postProductVersionAddData()
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    handleReset (formName) {
+      this.$refs[formName].resetFields()
+    },
+    _postProductVersionAddData () {
+      postProductVersionAddData()
+        .then(res => {
+          if (res.data.code === 200) {
+            this.$message.success('恭喜您!产品新版本添加成功!!!')
+            this.handleReset('ruleForm')
+          }
+        })
+        .catch(error => {
+          this.$message.error(error)
+        })
     }
   }
 }

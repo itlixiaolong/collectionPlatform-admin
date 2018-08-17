@@ -27,7 +27,7 @@ export default {
     },
     activeTextColor: {
       type: String,
-      default: '#409EFF'
+      default: '#fff'
     },
     collapse: {
       type: Boolean,
@@ -64,7 +64,7 @@ export default {
 
 <style>
 .el-menu-vertical:not(.el-menu--collapse) {
-  width: 200px;
+  width: 220px;
   min-height: 400px;
 }
 .el-menu {

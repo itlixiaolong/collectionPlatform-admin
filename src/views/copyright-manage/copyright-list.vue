@@ -55,21 +55,18 @@
           <template slot-scope="scope">{{ `${scope.row.namespace}/${scope.row.projectName}` }}</template>
         </el-table-column>
         <el-table-column
-          prop="address"
           label="审批状态"
           align="center"
           show-overflow-tooltip>
           <template slot-scope="scope">{{ scope.row.sshUrlToRepo }}</template>
         </el-table-column>
         <el-table-column
-          prop="address"
           label="申请人"
           align="center"
           show-overflow-tooltip>
           <template slot-scope="scope">{{ scope.row.projectType }}</template>
         </el-table-column>
         <el-table-column
-          prop="address"
           label="授权公司"
           align="center"
           show-overflow-tooltip>
@@ -100,7 +97,6 @@
           <template slot-scope="scope">{{ scope.row.projectType }}</template>
         </el-table-column>
         <el-table-column
-          prop="address"
           label="操作"
           align="center"
           fixed="right"

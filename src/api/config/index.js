@@ -1,5 +1,5 @@
 import http from 'axios'
-import { getSessionStorage } from 'utils/storage'
+import { getSessionStorage } from '../../utils/storage'
 const service = http.create()
 // 需要做权限登录的设置,如果不需要,可以直接删除
 service.interceptors.request.use(

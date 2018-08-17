@@ -51,9 +51,11 @@ export default {
 
 <style>
 @import url("../assets/style.css");
-.icon-leval1,
-.icon-level2 {
+.icon-leval1 {
   font-size: 20px;
+  margin-right: 10px;
+}
+.icon-level2 {
   margin-right: 10px;
 }
 .icon-playlist_add,
@@ -83,6 +85,9 @@ export default {
 .el-submenu .menu-text,
 .el-submenu .el-menu-item {
   color: #f4f0f0 !important;
+}
+.el-menu-item.is-active {
+  background-color: #000;
 }
 .el-submenu.is-active .el-submenu__title .menu-text {
   /* background-color: #2c2727; */

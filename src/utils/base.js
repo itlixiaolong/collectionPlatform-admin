@@ -40,7 +40,6 @@ export const router = [
         name: '版权管理',
         icon: 'icon-barcode',
         // component: ViewPort,
-        redirect: '/copyright-apply',
         children: [
           {
             path: '/copyright-apply',
@@ -59,6 +58,46 @@ export const router = [
             name: '版权列表',
             icon: 'icon-format_list_numbered'
             // component: CopyrightList
+          }
+        ]
+      },
+      {
+        path: '/userrights',
+        name: '用户权限服务',
+        icon: 'icon-dropbox',
+        // component: ViewPort,
+        children: [
+          {
+            path: '/userrights-menu',
+            name: '菜单管理',
+            icon: 'icon-file-text'
+            // component: MenuManage
+          },
+          {
+            path: '/userrights-functions',
+            name: '功能管理',
+            icon: 'icon-exit'
+            // component: FunctionsManage
+          }
+        ]
+      },
+      {
+        path: '/rbac',
+        name: '用户角色管理',
+        // component: ViewPort,
+        icon: 'icon-users',
+        children: [
+          {
+            path: '/role-list',
+            name: '角色管理',
+            icon: 'icon-user-circle'
+            // component: RoleList
+          },
+          {
+            path: '/user-list',
+            name: '用户管理',
+            icon: 'icon-user2'
+            // component: UserList
           }
         ]
       }

@@ -1,19 +1,26 @@
 <template>
   <div class="product-add">
     <el-form
+      ref="ruleForm"
       :model="ruleForm"
       :rules="rules"
       label-width="350px"
       class="demo-ruleForm">
       <el-form-item
         label="产品所属行业"
-        prop="region">
+        prop="trade">
         <el-select
           v-model="ruleForm.trade"
           placeholder="请选择产品所属行业">
           <el-option
             label="教育"
             value="0"/>
+          <el-option
+            label="政府"
+            value="1"/>
+          <el-option
+            label="金融"
+            value="2"/>
         </el-select>
       </el-form-item>
       <el-form-item
@@ -67,8 +74,12 @@
         </el-dialog>
       </el-form-item>
       <div class="btn-wrapper">
-        <el-button type="success">确定</el-button>
-        <el-button type="warning">取消</el-button>
+        <el-button
+          type="success"
+          @click="handleConfrim('ruleForm')">确定</el-button>
+        <el-button
+          type="warning"
+          @click="handleCancel('ruleForm')">取消</el-button>
       </div>
     </el-form>
 
@@ -76,6 +87,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { postproductAddData } from '../../api/product'
 export default {
   name: 'ProductAdd',
 
@@ -112,7 +124,31 @@ export default {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
       console.log(file)
-      alert(1)
+    },
+    handleConfrim (formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this._postproductAddData()
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    handleCancel (formName) {
+      this.$refs[formName].resetFields()
+    },
+    _postproductAddData () {
+      postproductAddData()
+        .then(res => {
+          if (res.data.code === 200) {
+            this.$message.success('恭喜您产品添加成功!!!')
+            this.handleCancel('ruleForm')
+          }
+        })
+        .catch(error => {
+          this.$message.error(error)
+        })
     }
   }
 }

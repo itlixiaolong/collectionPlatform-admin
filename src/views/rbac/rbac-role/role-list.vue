@@ -1,31 +1,22 @@
 <template>
-  <div class="version-history">
+  <div class="role-list">
     <div class="search-box">
-      <el-input
-        v-model="productName"
-        placeholder="请输入产品名称"
-        clearable/>
-      <el-input
-        v-model="productName"
-        placeholder="请输入产品版本"
-        clearable/>
-      <el-select
-        v-model="productRegion"
-        placeholder="请选择语言 "
-        clearable>
-        <el-option
-          v-for="item in languages"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"/>
-      </el-select>
-      <el-button>查询</el-button>
+      <div class="left-wrapper">
+        <el-input
+          v-model="userRoleName"
+          placeholder="请输入角色名称"
+          clearable/>
+        <el-button type="primary">查询</el-button>
+      </div>
+      <div class="right-wrapper">
+        <el-button type="warning">新增角色</el-button>
+      </div>
     </div>
-    <div class="product-table">
+    <div class="role-table">
       <el-table
         v-loading.body="loading"
         ref="multipleTable"
-        :data="productVersionList"
+        :data="userRoleList"
         element-loading-text="拼命加载中..."
         tooltip-effect="dark"
         fit
@@ -40,52 +31,36 @@
           label="序号"
           type="index"
           align="center"
+          width="60"
         />
         <el-table-column
           prop="name"
-          label="产品Logo"
+          label="角色名称"
           align="center"
           show-overflow-tooltip
         >
-          <template slot-scope="scope"><img :src="scope.row.productLogo"></template>
+          <template slot-scope="scope">{{ scope.row.roleName }}</template>
         </el-table-column>
         <el-table-column
-          prop="name"
-          label="产品名称"
-          align="center"
-          show-overflow-tooltip
-        >
-          <template slot-scope="scope">{{ scope.row.productName }}</template>
-        </el-table-column>
-        <el-table-column
-          label="版本号"
+          prop=""
+          label="英文名称"
           align="center"
           show-overflow-tooltip>
-          <template slot-scope="scope">{{ scope.row.latestVersion }}</template>
+          <template slot-scope="scope">{{ scope.row.roleCode }}</template>
         </el-table-column>
         <el-table-column
-          label="基线"
+          prop=""
+          label="分配权限"
           align="center"
           show-overflow-tooltip>
           <template slot-scope="scope">
-            {{ scope.row.productBaseLine }}
+            <el-button
+              type="primary"
+              size="mini">分配权限</el-button>
           </template>
         </el-table-column>
         <el-table-column
-          label="基线版本"
-          align="center"
-          show-overflow-tooltip>
-          <template slot-scope="scope">{{ scope.row.productBaseLineVersion }}</template>
-        </el-table-column>
-        <el-table-column
-          label="下载二维码"
-          align="center"
-          show-overflow-tooltip>
-          <template slot-scope="scope">
-            <img :src="scope.row.QRcode">
-          </template>
-        </el-table-column>
-        <el-table-column
+          prop=""
           label="操作"
           align="center"
           fixed="right"
@@ -93,13 +68,15 @@
           show-overflow-tooltip
         >
           <template slot-scope="scope">
-            <div class="btn-wrapper">
+            <div class="btn-weapper">
               <el-button
-                type="primary"
-                size="mini">修改</el-button>
+                type="success"
+                size="mini"
+                @click="handleEditThis(scope.row)">编辑</el-button>
               <el-button
                 type="danger"
-                size="mini">删除</el-button>
+                size="mini"
+                @click="handleRemoveThis(scope.row)">删除</el-button>
             </div>
           </template>
         </el-table-column>
@@ -117,47 +94,84 @@
         />
       </div>
     </div>
+    <role-edit
+      v-if="Object.values(roleData)"
+      ref="roleEdit"
+      :role-data="roleData"/>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import { getProductVersionHistoryData } from '../../../api/product'
+import RoleEdit from './role-edit'
 export default {
-  name: 'ProjectVersionHistory',
+  name: 'RoleList',
+  components: {
+    RoleEdit
+  },
   data () {
     return {
       // 搜索条件数据
-      productName: '',
-      productStatus: '',
-      productRegion: '',
-      productTrade: '',
-      languages: [
-        {
-          label: 'Andriod',
-          value: 0
-        },
-        {
-          label: 'Ios',
-          value: 1
-        },
-        {
-          label: 'H5',
-          value: 2
-        }
-      ],
+      userRoleName: '',
+      roleData: {},
       // 产品列表数据
       loading: false,
-      productVersionList: [],
+      userRoleList: [
+        {
+          total: null,
+          totalPages: null,
+          pageSize: 20,
+          page: 1,
+          start: 0,
+          id: 1,
+          roleCode: 'administrator',
+          roleName: '超级管理员',
+          createTime: null
+        },
+        {
+          total: null,
+          totalPages: null,
+          pageSize: 20,
+          page: 1,
+          start: 0,
+          id: 2,
+          roleCode: 'default',
+          roleName: '默认用户',
+          createTime: null
+        },
+        {
+          total: null,
+          totalPages: null,
+          pageSize: 20,
+          page: 1,
+          start: 0,
+          id: 3,
+          roleCode: 'depAdmin',
+          roleName: '部门负责人',
+          createTime: null
+        },
+        {
+          total: null,
+          totalPages: null,
+          pageSize: 20,
+          page: 1,
+          start: 0,
+          id: 4,
+          roleCode: 'projectAdmin',
+          roleName: '项目管理员',
+          createTime: null
+        }
+      ],
       // 分页控制数据
       pagetotle: 0,
       pagesize: 20,
       currentPage: 1
     }
   },
-  created () {
-    this._getProductVersionHistoryData()
-  },
   methods: {
+    handleEditThis (data) {
+      this.roleData = data
+      this.$refs.roleEdit.isShowDialog = true
+    },
     calculateIndex (index) {
       return (this.currentPage - 1) * this.pagesize + index
     },
@@ -176,41 +190,38 @@ export default {
     handleNextPageChange () {
       this._getProductList()
     },
-    _getProductVersionHistoryData () {
-      getProductVersionHistoryData().then(res => {
-        if (res.data.code === 200) {
-          this.productVersionList = res.data.data
-        }
-      })
-    }
+    _getProductList () {}
   }
 }
 </script>
 
 <style scoped lang="less">
-.version-history {
+.role-list {
   .search-box {
-    width: 70%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .el-input,
-    .el-select {
-      width: 30%;
+    .left-wrapper {
+      width: 20%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .el-input,
+      .el-select {
+        width: 70%;
+      }
+    }
+    .right-wrapper {
+      margin-right: 20px;
     }
   }
-  .product-table {
+  .role-table {
     width: 100%;
     box-sizing: border-box;
     padding: 20px 0px;
     .el-table {
       width: 100%;
-      img {
-        display: inline-block;
-        width: 40px;
-        height: 40px;
-      }
-      .btn-wrapper {
+      .btn-weapper {
         display: flex;
         justify-content: space-around;
       }

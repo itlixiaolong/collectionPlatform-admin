@@ -1,51 +1,46 @@
 <template>
   <div class="product-list">
     <div class="search-box">
+      <el-select
+        v-model="department"
+        placeholder="请输入用户所属部门"
+        clearable>
+        <el-option
+          v-for="item in departments"
+          :key="item.depCode"
+          :label="item.depName"
+          :value="item.depCode"/>
+      </el-select>
       <el-input
-        v-model="productName"
-        placeholder="请输入产品名称"
+        v-model="userCode"
+        placeholder="请输入用户工号"
+        clearable/>
+      <el-input
+        v-model="userName"
+        placeholder="请输入用户姓名"
         clearable/>
       <el-select
-        v-model="productStatus"
-        placeholder="请选择产品状态"
+        v-model="userRole"
+        placeholder="请选择用户角色"
         clearable>
         <el-option
-          v-for="item in status"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"/>
+          v-for="item in userRoles"
+          :key="item.roleCode"
+          :label="item.roleName"
+          :value="item.roleCode"/>
       </el-select>
-      <el-select
-        v-model="productRegion"
-        placeholder="请选择产品所属地区"
-        clearable>
-        <el-option
-          v-for="item in regions"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"/>
-      </el-select>
-      <el-select
-        v-model="productTrade"
-        placeholder="请选择产品所属地区"
-        clearable>
-        <el-option
-          v-for="item in trades"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"/>
-      </el-select>
-      <el-button>查询</el-button>
+      <el-button type="primary">查询</el-button>
     </div>
     <div class="product-table">
       <el-table
         v-loading.body="loading"
         ref="multipleTable"
-        :data="productList"
+        :data="userList"
         element-loading-text="拼命加载中..."
         tooltip-effect="dark"
         fit
         border
+        max-height="1000"
       >
         <el-table-column
           type="selection"
@@ -56,47 +51,60 @@
           label="序号"
           type="index"
           align="center"
+          width="60"
         />
         <el-table-column
           prop="name"
-          label="产品LOGO"
+          label="工号"
           align="center"
           show-overflow-tooltip
         >
           <template slot-scope="scope">
-            <img
-              :src="scope.row.productLogo"
-              alt="图片">
+            {{ scope.row.emplId }}
           </template>
         </el-table-column>
         <el-table-column
-          label="产品名称"
+          prop=""
+          label="姓名"
           align="center"
           show-overflow-tooltip>
-          <template slot-scope="scope">{{ scope.row.productName }}</template>
+          <template slot-scope="scope">{{ scope.row.name }}</template>
         </el-table-column>
         <el-table-column
-          label="状态"
+          prop=""
+          label="邮箱"
           align="center"
           class-name="copyBtnParent"
           show-overflow-tooltip>
-          <template slot-scope="scope">{{ scope.row.productStatus }}</template>
+          <template slot-scope="scope">{{ scope.row.mail }}</template>
         </el-table-column>
         <el-table-column
-          label="最新版本"
+          prop=""
+          label="岗位 "
           align="center"
           show-overflow-tooltip>
-          <template slot-scope="scope">{{ scope.row.latestVersion }}</template>
+          <template slot-scope="scope">{{ scope.row.jobDesc }}</template>
         </el-table-column>
         <el-table-column
-          label="下载二维码"
+          prop=""
+          label="部门"
           align="center"
           show-overflow-tooltip>
           <template slot-scope="scope">
-            <img :src="scope.row.QRcode">
+            {{ scope.row.depName }}
           </template>
         </el-table-column>
         <el-table-column
+          prop=""
+          label="当前角色"
+          align="center"
+          show-overflow-tooltip>
+          <template slot-scope="scope">
+            {{ scope.row.role.label }}
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop=""
           label="操作"
           align="center"
           fixed="right"
@@ -106,14 +114,9 @@
           <template slot-scope="scope">
             <div class="btn-weapper">
               <el-button
-                type="primary"
-                size="mini">修改</el-button>
-              <el-button
-                type="danger"
-                size="mini">删除</el-button>
-              <el-button
                 type="success"
-                size="mini">历史版本管理</el-button>
+                size="mini"
+                @click="handleSetRole(scope.row.role)">分配角色</el-button>
             </div>
           </template>
         </el-table-column>
@@ -131,62 +134,59 @@
         />
       </div>
     </div>
+    <transfer
+      v-if="userRoles.length>0"
+      ref="transfer"
+      :incoming-data="userRoles"
+      :incoming-default="currentRole"
+      :props-option="propsOption"
+      :select-one="selectOne"
+      @backTransferData="emitTransferFun"
+    />
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import { getProductListData } from '../../api/product'
+import Transfer from '../../../components/transfer'
+import { getDepartmentsData, getUserListData } from '../../../api/rbac'
 export default {
   name: 'ProductList',
+  components: {
+    Transfer
+  },
   data () {
     return {
       // 搜索条件数据
-      productName: '',
-      productStatus: '',
-      productRegion: '',
-      productTrade: '',
-      status: [
+      departments: [],
+      userList: [],
+      department: '',
+      userName: '',
+      userCode: '',
+      userRole: '',
+      currentRole: [],
+      userRoles: [
         {
-          label: '演示版本',
-          value: 0
+          roleName: '超级管理员',
+          roleCode: 0
         },
         {
-          label: '企业版本',
-          value: 1
+          roleName: '部门负责人',
+          roleCode: 1
         },
         {
-          label: '正式版本',
-          value: 2
+          roleName: '项目负责人',
+          roleCode: 2
+        },
+        {
+          roleName: '普通用户',
+          roleCode: 3
         }
       ],
-      regions: [
-        {
-          label: '华北',
-          value: 0
-        },
-        {
-          label: '东南',
-          value: 1
-        },
-        {
-          label: '华东',
-          value: 2
-        }
-      ],
-      trades: [
-        {
-          label: '教育',
-          value: 0
-        },
-        {
-          label: '金融',
-          value: 1
-        },
-        {
-          label: '政府',
-          value: 2
-        }
-      ],
+      propsOption: {
+        key: 'roleCode',
+        label: 'roleName'
+      },
+      selectOne: true,
       // 产品列表数据
       loading: false,
       productList: [],
@@ -197,32 +197,56 @@ export default {
     }
   },
   created () {
-    this._getProductListData()
+    this._getDepartmentsData()
+    this._getUserListData()
   },
   methods: {
+    emitTransferFun (targetDataObj, ids) {
+      if (targetDataObj.length > 0) {
+        this.$message.success('恭喜您!用户角色分配成功!!!')
+        this.$refs.transfer.dialogVisible = false
+      } else {
+        this.$message.warning('请至少为该用户分配一个角色!!!')
+      }
+    },
+    handleSetRole (data) {
+      this.currentRole = [data]
+      this.$refs.transfer.dialogVisible = true
+    },
     calculateIndex (index) {
       return (this.currentPage - 1) * this.pagesize + index
     },
     // 分页控制方法
     handlesSizeChange (pageSize) {
       this.pagesize = pageSize
-      this._getProductList()
+      this._getUserListData()
     },
     handleCurrentPageChange (page) {
       this.currentPage = page
-      this._getProductList()
+      this._getUserListData()
     },
     handlePrevPageChange () {
-      this._getProductList()
+      this._getUserListData()
     },
     handleNextPageChange () {
-      this._getProductList()
+      this._getUserListData()
     },
-    _getProductListData () {
-      getProductListData()
+    _getDepartmentsData () {
+      getDepartmentsData()
         .then(res => {
           if (res.data.code === 200) {
-            this.productList = res.data.data
+            this.departments = res.data.data
+          }
+        })
+        .catch(error => {
+          this.$message.error(error)
+        })
+    },
+    _getUserListData () {
+      getUserListData()
+        .then(res => {
+          if (res.data.code === 200) {
+            this.userList = res.data.data
           }
         })
         .catch(error => {
@@ -235,7 +259,10 @@ export default {
 
 <style scoped lang="less">
 .product-list {
+  position: relative;
   .search-box {
+    // position: fixed;
+    // z-index: 999;
     width: 70%;
     display: flex;
     justify-content: space-between;
@@ -248,7 +275,7 @@ export default {
   .product-table {
     width: 100%;
     box-sizing: border-box;
-    padding: 20px 0px;
+    padding: 20px 0px 20px;
     .el-table {
       width: 100%;
       img {

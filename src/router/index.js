@@ -2,6 +2,13 @@ import Vue from 'vue'
 import Router from 'vue-router'
 const Home = () => import(/* webpackChunkName: "home" */ '../views/home/home')
 const ViewPort = () => import(/* webpackChunkName: "home" */ '../components/viewport.vue')
+
+// 功能管理
+const MenuManage = () => import(/* webpackChunkName: "userrights" */ '../views/userrights-manage/userrights-menus.vue')
+const FunctionsManage = () => import(/* webpackChunkName: "userrights" */ '../views/userrights-manage/userrights-functions.vue')
+// 用户权限服务
+const RoleList = () => import(/* webpackChunkName: "product" */ '../views/rbac/rbac-role/role-list.vue')
+const UserList = () => import(/* webpackChunkName: "product" */ '../views/rbac/rbac-user/user-list.vue')
 const ProductList = () => import(/* webpackChunkName: "product" */ '../views/product-manage/product-list.vue')
 const ProductAdd = () => import(/* webpackChunkName: "product" */ '../views/product-manage/product-add.vue')
 const ProductVersionAdd = () => import(/* webpackChunkName: "product" */ '../views/product-manage/product-version/version-add.vue')
@@ -24,10 +31,43 @@ export default new Router({
       component: Home,
       children: [
         {
+          path: '/userrights',
+          name: '用户权限服务',
+          component: ViewPort,
+          children: [
+            {
+              path: '/userrights-menu',
+              name: '菜单管理',
+              component: MenuManage
+            },
+            {
+              path: '/userrights-functions',
+              name: '功能管理',
+              component: FunctionsManage
+            }
+          ]
+        },
+        {
+          path: '/rbac',
+          name: '用户角色管理',
+          component: ViewPort,
+          children: [
+            {
+              path: '/role-list',
+              name: '角色管理',
+              component: RoleList
+            },
+            {
+              path: '/user-list',
+              name: '用户管理',
+              component: UserList
+            }
+          ]
+        },
+        {
           path: '/product',
           name: '产品管理',
           component: ViewPort,
-          redirect: '/product-list',
           children: [
             {
               path: '/product-list',
@@ -55,7 +95,6 @@ export default new Router({
           path: '/copyright',
           name: '版权管理',
           component: ViewPort,
-          redirect: '/copyright-apply',
           children: [
             {
               path: '/copyright-apply',
