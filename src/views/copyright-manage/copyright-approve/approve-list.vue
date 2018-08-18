@@ -344,7 +344,7 @@ export default {
 <style scoped lang="less">
 .product-list {
   .search-box {
-    width: 35%;
+    width: 40%;
     display: flex;
     justify-content: space-between;
     align-items: center;

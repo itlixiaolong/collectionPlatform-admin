@@ -1,7 +1,8 @@
 <template>
   <el-dialog
     :visible.sync="isShowDialog"
-    title="编辑"
+    title="新增"
+    center
   >
     <el-form
       ref="ruleForm"
@@ -28,26 +29,15 @@
       <el-form-item >
         <el-button
           type="primary"
-          @click="handleConfirm('ruleForm')">确认修改</el-button>
-        <el-button @click="handleCancel('ruleForm')">取消</el-button>
+          @click="handleConfirm('ruleForm')">确认新增</el-button>
+        <el-button @click="handleCancel('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
   </el-dialog>
 </template>
 <script>
 export default {
-  name: 'RoleEdit',
-  props: {
-    roleData: {
-      type: Object,
-      default () {
-        return {
-          roleName: '',
-          roleCode: ''
-        }
-      }
-    }
-  },
+  name: 'RoleAdd',
   data () {
     return {
       isShowDialog: false,
@@ -66,15 +56,12 @@ export default {
       }
     }
   },
-  created () {
-    Object.assign(this.ruleForm, this.roleData)
-  },
   methods: {
     handleConfirm (formName) {
       // 确认按钮
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$message.success('恭喜您!角色信息修改成功!!!')
+          this.$message.success('恭喜您!角色新增成功!!!')
           this.isShowDialog = false
         } else {
           this.$message.error('对不起!请检查输入信息是否有误!!!')
@@ -82,9 +69,10 @@ export default {
         }
       })
     },
-    handleCancel (ruleForm) {
-      // 取消按钮
-      this.isShowDialog = false
+    handleCancel (formName) {
+      // 重置按钮
+      this.$refs[formName].resetFields()
+      // this.isShowDialog = false
     }
   }
 }

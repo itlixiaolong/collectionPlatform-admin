@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tree-wrapper">
     <tree
       v-if="functionsList.length"
       :data-list="functionsList"
@@ -31,7 +31,7 @@ export default {
         expandOnClickNode: true,
         DailogTitle: '功能管理',
         nodeKey: 'path',
-        defaultExpandKeys: ['/'],
+        defaultExpandKeys: ['/home'],
         indent: 25,
         defaultCheckedKeys: [],
         updateText: ['name', 'functionEnName'],
@@ -128,4 +128,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.tree-wrapper{
+  height:100%;
+  overflow-y: auto;
+}
 </style>

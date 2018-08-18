@@ -1,4 +1,4 @@
-import {axios} from 'api/config/index'
+import {axios} from '../config/index'
 // 登录接口
 export function postLoginData (params) {
   return axios.post('/login', params)

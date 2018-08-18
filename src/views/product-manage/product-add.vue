@@ -162,8 +162,8 @@ export default {
     width: 50%;
   }
   .btn-wrapper {
-    width: 20%;
-    margin-top: 50px;
+    width: 200px;
+    margin-top: 30px;
     margin-left: 450px;
     display: flex;
     justify-content: space-around;

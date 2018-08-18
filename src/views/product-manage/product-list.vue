@@ -235,6 +235,10 @@ export default {
 
 <style scoped lang="less">
 .product-list {
+  width: 100%;
+  height: 90%;
+  box-sizing: border-box;
+  padding: 20px 0px 20px;
   .search-box {
     width: 70%;
     display: flex;
@@ -247,10 +251,13 @@ export default {
   }
   .product-table {
     width: 100%;
+    height: 100%;
     box-sizing: border-box;
     padding: 20px 0px;
     .el-table {
       width: 100%;
+      height: 100%;
+      overflow-y: auto;
       img {
         display: inline-block;
         width: 40px;

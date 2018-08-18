@@ -30,7 +30,7 @@
       <el-table
         v-loading.body="loading"
         ref="multipleTable"
-        :data="productList"
+        :data="copyrightList"
         element-loading-text="拼命加载中..."
         tooltip-effect="dark"
         fit
@@ -52,32 +52,26 @@
           align="center"
           show-overflow-tooltip
         >
-          <template slot-scope="scope">{{ `${scope.row.namespace}/${scope.row.projectName}` }}</template>
+          <template slot-scope="scope">{{ scope.row.productName }}</template>
         </el-table-column>
         <el-table-column
           label="审批状态"
           align="center"
           show-overflow-tooltip>
-          <template slot-scope="scope">{{ scope.row.sshUrlToRepo }}</template>
+          <template slot-scope="scope">{{ scope.row.status }}</template>
         </el-table-column>
         <el-table-column
           label="申请人"
           align="center"
           show-overflow-tooltip>
-          <template slot-scope="scope">{{ scope.row.projectType }}</template>
+          <template slot-scope="scope">{{ scope.row.applyPerson }}</template>
         </el-table-column>
         <el-table-column
           label="授权公司"
           align="center"
           show-overflow-tooltip>
           <template slot-scope="scope">
-            <span
-              v-for="(item,index) in scope.row.projectDepartments"
-              :key="index"
-              class="parment"
-            >
-              {{ item.depName }}
-            </span>
+            {{ scope.row.company }}
           </template>
         </el-table-column>
         <el-table-column
@@ -86,7 +80,7 @@
           align="center"
           show-overflow-tooltip
         >
-          <template slot-scope="scope">{{ scope.row.projectType }}</template>
+          <template slot-scope="scope">{{ scope.row.approvePerson }}</template>
         </el-table-column>
         <el-table-column
           prop="name"
@@ -94,7 +88,7 @@
           align="center"
           show-overflow-tooltip
         >
-          <template slot-scope="scope">{{ scope.row.projectType }}</template>
+          <template slot-scope="scope">{{ scope.row.approveTime }}</template>
         </el-table-column>
         <el-table-column
           label="操作"
@@ -135,6 +129,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { getCopyrightList } from '../../api/copyright/index'
 export default {
   name: 'ProductList',
   data () {
@@ -188,174 +183,15 @@ export default {
       ],
       // 产品列表数据
       loading: false,
-      productList: [
-        {
-          total: null,
-          totalPages: null,
-          pageSize: 20,
-          page: 1,
-          start: 0,
-          id: 2379,
-          projectName: 'temail-data-consistency',
-          cnName: 'temail数据一致性服务',
-          projectCode: '993java',
-          description: 'message保存数据库与发送消息队列的数据一致性保证服务',
-          projectType: 'java',
-          namespace: 'java_temail',
-          pathWithNamespace: 'java_temail/temail-data-consistency',
-          sshUrlToRepo:
-            'git@172.28.4.12:java_temail/temail-data-consistency.git',
-          webUrl: 'http://172.28.4.12/java_temail/temail-data-consistency',
-          defaultBranch: '',
-          comment: '',
-          approveComment: '',
-          status: 2,
-          lastActivityAt: 1534126959362,
-          createdAt: 1534126959362,
-          projectDepartments: [
-            {
-              id: 2738,
-              projectId: 2379,
-              depCode: '6000220',
-              depName: '总集成部'
-            }
-          ],
-          projectUsers: []
-        },
-        {
-          total: null,
-          totalPages: null,
-          pageSize: 20,
-          page: 1,
-          start: 0,
-          id: 2338,
-          projectName: 'cdtp-status',
-          cnName: 'CDTP状态服务',
-          projectCode: '990java',
-          description: 'CDTP状态服务',
-          projectType: 'java',
-          namespace: 'ZJC_Java',
-          pathWithNamespace: 'ZJC_Java/cdtp-status',
-          sshUrlToRepo: 'git@172.28.4.12:ZJC_Java/cdtp-status.git',
-          webUrl: 'http://172.28.4.12/ZJC_Java/cdtp-status',
-          defaultBranch: '',
-          comment: '',
-          approveComment: '',
-          status: 2,
-          lastActivityAt: 1533890089236,
-          createdAt: 1533890089236,
-          projectDepartments: [
-            {
-              id: 2732,
-              projectId: 2338,
-              depCode: '6000220',
-              depName: '总集成部'
-            }
-          ],
-          projectUsers: []
-        },
-        {
-          total: null,
-          totalPages: null,
-          pageSize: 20,
-          page: 1,
-          start: 0,
-          id: 2337,
-          projectName: 'cdtp-dispatcher',
-          cnName: 'CDTP信息分发服务',
-          projectCode: '988java',
-          description: 'CDTP信息分发服务',
-          projectType: 'java',
-          namespace: 'java_temail',
-          pathWithNamespace: 'java_temail/cdtp-dispatcher',
-          sshUrlToRepo: 'git@172.28.4.12:java_temail/cdtp-dispatcher.git',
-          webUrl: 'http://172.28.4.12/java_temail/cdtp-dispatcher',
-          defaultBranch: '',
-          comment: '',
-          approveComment: '',
-          status: 2,
-          lastActivityAt: 1533809920647,
-          createdAt: 1533809920647,
-          projectDepartments: [
-            {
-              id: 2730,
-              projectId: 2337,
-              depCode: '6000220',
-              depName: '总集成部'
-            }
-          ],
-          projectUsers: []
-        },
-        {
-          total: null,
-          totalPages: null,
-          pageSize: 20,
-          page: 1,
-          start: 0,
-          id: 2336,
-          projectName: 'zjc-apm',
-          cnName: '总集全链路监控',
-          projectCode: '987java',
-          description: '总集全链路监控系统',
-          projectType: 'java',
-          namespace: 'ZJC_Java',
-          pathWithNamespace: 'ZJC_Java/zjc-apm',
-          sshUrlToRepo: 'git@172.28.4.12:ZJC_Java/zjc-apm.git',
-          webUrl: 'http://172.28.4.12/ZJC_Java/zjc-apm',
-          defaultBranch: '',
-          comment: '',
-          approveComment: '',
-          status: 2,
-          lastActivityAt: 1533803983209,
-          createdAt: 1533803983209,
-          projectDepartments: [
-            {
-              id: 2728,
-              projectId: 2336,
-              depCode: '6000220',
-              depName: '总集成部'
-            }
-          ],
-          projectUsers: []
-        },
-        {
-          total: null,
-          totalPages: null,
-          pageSize: 20,
-          page: 1,
-          start: 0,
-          id: 2335,
-          projectName: 'temail-server',
-          cnName: 'CDTP服务器',
-          projectCode: '985java',
-          description: 'CDTP长链接服务器',
-          projectType: 'java',
-          namespace: 'ZJC_Java',
-          pathWithNamespace: 'ZJC_Java/temail-server',
-          sshUrlToRepo: 'git@172.28.4.12:ZJC_Java/temail-server.git',
-          webUrl: 'http://172.28.4.12/ZJC_Java/temail-server',
-          defaultBranch: '',
-          comment: 'CDTP长链接服务器',
-          approveComment: '',
-          status: 2,
-          lastActivityAt: 1533783169051,
-          createdAt: 1533783169051,
-          projectDepartments: [
-            {
-              id: 2726,
-              projectId: 2335,
-              depCode: '6000220',
-              depName: '总集成部'
-            }
-          ],
-          projectUsers: []
-        }
-      ],
+      copyrightList: [],
       // 分页控制数据
       pagetotle: 0,
       pagesize: 20,
       currentPage: 1
     }
+  },
+  created () {
+    this._getCopyrightList()
   },
   methods: {
     calculateIndex (index) {
@@ -376,13 +212,25 @@ export default {
     handleNextPageChange () {
       this._getProductList()
     },
-    _getProductList () {}
+    _getCopyrightList () {
+      getCopyrightList()
+        .then(res => {
+          if (res.data.code === 200) {
+            this.copyrightList = res.data.data
+          }
+        })
+        .catch(error => {
+          this.$message.error(error.response.data.message)
+        })
+    }
   }
 }
 </script>
 
 <style scoped lang="less">
 .product-list {
+  height: 100%;
+  box-sizing: border-box;
   .search-box {
     width: 70%;
     display: flex;
@@ -395,10 +243,13 @@ export default {
   }
   .product-table {
     width: 100%;
+    height: 90%;
     box-sizing: border-box;
     padding: 20px 0px;
     .el-table {
       width: 100%;
+      height:100%;
+      overflow-y: auto;
       .btn-weapper {
         display: flex;
         justify-content: space-around;

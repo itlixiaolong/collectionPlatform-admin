@@ -9,7 +9,9 @@
         <el-button type="primary">查询</el-button>
       </div>
       <div class="right-wrapper">
-        <el-button type="warning">新增角色</el-button>
+        <el-button
+          type="warning"
+          @click="handleRoleAdd">新增角色</el-button>
       </div>
     </div>
     <div class="role-table">
@@ -95,18 +97,21 @@
       </div>
     </div>
     <role-edit
-      v-if="Object.values(roleData)"
+      v-if="isEmpty"
       ref="roleEdit"
       :role-data="roleData"/>
+    <role-add ref="roleAdd"/>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import RoleEdit from './role-edit'
+import RoleAdd from './role-add'
 export default {
   name: 'RoleList',
   components: {
-    RoleEdit
+    RoleEdit,
+    RoleAdd
   },
   data () {
     return {
@@ -167,10 +172,20 @@ export default {
       currentPage: 1
     }
   },
+  computed: {
+    isEmpty () {
+      return Object.values(this.roleData).length
+    }
+  },
   methods: {
     handleEditThis (data) {
       this.roleData = data
-      this.$refs.roleEdit.isShowDialog = true
+      this.$nextTick(() => {
+        this.$refs.roleEdit.isShowDialog = true
+      })
+    },
+    handleRoleAdd () {
+      this.$refs.roleAdd.isShowDialog = true
     },
     calculateIndex (index) {
       return (this.currentPage - 1) * this.pagesize + index
@@ -202,7 +217,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     .left-wrapper {
-      width: 20%;
+      width: 25%;
       display: flex;
       justify-content: space-between;
       align-items: center;

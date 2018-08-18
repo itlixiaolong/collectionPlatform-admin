@@ -189,6 +189,7 @@ export default {
 
 <style scoped lang="less">
 .version-history {
+  height: 100%;
   .search-box {
     width: 70%;
     display: flex;
@@ -201,10 +202,13 @@ export default {
   }
   .product-table {
     width: 100%;
+    height: 90%;
     box-sizing: border-box;
     padding: 20px 0px;
     .el-table {
       width: 100%;
+      height: 100%;
+      overflow-y: auto;
       img {
         display: inline-block;
         width: 40px;

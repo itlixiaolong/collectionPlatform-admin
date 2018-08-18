@@ -40,7 +40,7 @@
         tooltip-effect="dark"
         fit
         border
-        max-height="1000"
+        height="100%"
       >
         <el-table-column
           type="selection"
@@ -100,7 +100,7 @@
           align="center"
           show-overflow-tooltip>
           <template slot-scope="scope">
-            {{ scope.row.role.label }}
+            {{ scope.row.role.roleName }}
           </template>
         </el-table-column>
         <el-table-column
@@ -150,7 +150,7 @@
 import Transfer from '../../../components/transfer'
 import { getDepartmentsData, getUserListData } from '../../../api/rbac'
 export default {
-  name: 'ProductList',
+  name: 'UserList',
   components: {
     Transfer
   },
@@ -166,20 +166,20 @@ export default {
       currentRole: [],
       userRoles: [
         {
-          roleName: '超级管理员',
-          roleCode: 0
+          roleCode: 'administrator',
+          roleName: '超级管理员'
         },
         {
-          roleName: '部门负责人',
-          roleCode: 1
+          roleCode: 'default',
+          roleName: '默认用户'
         },
         {
-          roleName: '项目负责人',
-          roleCode: 2
+          roleCode: 'depAdmin',
+          roleName: '部门负责人'
         },
         {
-          roleName: '普通用户',
-          roleCode: 3
+          roleCode: 'projectAdmin',
+          roleName: '项目管理员'
         }
       ],
       propsOption: {
@@ -259,10 +259,9 @@ export default {
 
 <style scoped lang="less">
 .product-list {
-  position: relative;
+  box-sizing: border-box;
+  height: 100%;
   .search-box {
-    // position: fixed;
-    // z-index: 999;
     width: 70%;
     display: flex;
     justify-content: space-between;
@@ -274,6 +273,7 @@ export default {
   }
   .product-table {
     width: 100%;
+    height: 90%;
     box-sizing: border-box;
     padding: 20px 0px 20px;
     .el-table {

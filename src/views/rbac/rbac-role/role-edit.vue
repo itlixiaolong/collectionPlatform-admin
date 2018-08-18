@@ -2,6 +2,7 @@
   <el-dialog
     :visible.sync="isShowDialog"
     title="编辑"
+    center
   >
     <el-form
       ref="ruleForm"
@@ -82,7 +83,7 @@ export default {
         }
       })
     },
-    handleCancel (ruleForm) {
+    handleCancel () {
       // 取消按钮
       this.isShowDialog = false
     }

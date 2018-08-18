@@ -15,4 +15,8 @@ export default {
 </script>
 
 <style scoped lang="less">
+.view-port {
+  flex: 1;
+  height: 100%;
+}
 </style>

@@ -76,7 +76,7 @@ export default {
   },
   computed: {
     calculateHeight () {
-      return `${this.innerHeight - 20}px`
+      return `${this.innerHeight}px`
     },
     calculateWidth () {
       return this.innerWidth - this.leftPx
@@ -172,12 +172,20 @@ export default {
 .content {
   flex: 1;
   display: flex;
+  width: 100%;
+  // overflow: hidden;
+  // box-sizing: border-box;
   .aside {
     height: 100%;
     padding-top: 20px;
+    box-sizing: border-box;
     background-color: #334057;
   }
   .right-section {
+    flex: 1;
+    // :style="{width:`${calculateWidth+40}px`}"
+    display: flex;
+    flex-direction: column;
     .section-header {
       height: 45px;
       width: 100%;
@@ -193,6 +201,9 @@ export default {
     }
     .section-view {
       width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
       // height: 100%;
       // overflow-y: auto;
       box-sizing: border-box;

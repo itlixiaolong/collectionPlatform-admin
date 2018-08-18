@@ -17,7 +17,6 @@ const template = {
         {
           path: '/product',
           name: '产品管理',
-          redirect: '/product-list',
           icon: 'icon-briefcase',
           code: '100产品管理',
           status: null,
@@ -50,7 +49,45 @@ const template = {
                 createTime: null,
                 updateTime: null,
                 roleId: null
-              }],
+              },
+              {
+                name: '修改',
+                code: '2修改',
+                status: null,
+                functionCode: 2,
+                functionEnName: 'edit',
+                functionUrl: '',
+                menuCode: 100100,
+                createTime: null,
+                updateTime: null,
+                roleId: null
+              },
+              {
+                name: '删除',
+                code: '3删除',
+                status: null,
+                functionCode: 3,
+                functionEnName: 'remove',
+                functionUrl: '',
+                menuCode: 100100,
+                createTime: null,
+                updateTime: null,
+                roleId: null
+              },
+              {
+                name: '历史版本',
+                code: '4历史版本',
+                status: null,
+                functionCode: 4,
+                functionEnName: 'remove',
+                functionUrl: '',
+                menuCode: 100100,
+                createTime: null,
+                updateTime: null,
+                roleId: null
+              }
+
+              ],
               roleId: null
               // component: ProductList
             },
@@ -79,66 +116,6 @@ const template = {
                   createTime: null,
                   updateTime: null,
                   roleId: null
-                },
-                {
-                  name: 'jenkins',
-                  code: '10jenkins',
-                  status: null,
-                  functionCode: 10,
-                  functionEnName: 'jenkins',
-                  functionUrl: '',
-                  menuCode: 101100,
-                  createTime: null,
-                  updateTime: null,
-                  roleId: null
-                },
-                {
-                  name: '创建流水线',
-                  code: '11创建流水线',
-                  status: null,
-                  functionCode: 11,
-                  functionEnName: 'createpipline',
-                  functionUrl: '',
-                  menuCode: 101100,
-                  createTime: null,
-                  updateTime: null,
-                  roleId: null
-                },
-                {
-                  name: '构建记录',
-                  code: '12构建记录',
-                  status: null,
-                  functionCode: 12,
-                  functionEnName: 'record',
-                  functionUrl: '',
-                  menuCode: 101100,
-                  createTime: null,
-                  updateTime: null,
-                  roleId: null
-                },
-                {
-                  name: '节点管理',
-                  code: '13节点管理',
-                  status: null,
-                  functionCode: 13,
-                  functionEnName: 'nodesManage',
-                  functionUrl: '',
-                  menuCode: 101100,
-                  createTime: null,
-                  updateTime: null,
-                  roleId: null
-                },
-                {
-                  name: '删除流水线',
-                  code: '80删除流水线',
-                  status: null,
-                  functionCode: 80,
-                  functionEnName: 'deletePipeline',
-                  functionUrl: '',
-                  menuCode: 101100,
-                  createTime: null,
-                  updateTime: null,
-                  roleId: null
                 }
               ],
               roleId: null
@@ -147,15 +124,101 @@ const template = {
               path: '/product-version-add',
               name: '添加产品版本',
               // component: ProductVersionAdd
-              icon: 'icon-files-empty'
+              icon: 'icon-files-empty',
+              // component: ProductList
+              code: '101100添加产品版本',
+              status: null,
+              menuCode: 101100,
+              parentMenuCode: 101,
+              sortCode: null,
+              createTime: null,
+              updateTime: null,
+              children: [],
+              functions: [
+                {
+                  name: '查看',
+                  code: '9查看',
+                  status: null,
+                  functionCode: 9,
+                  functionEnName: 'view',
+                  functionUrl: '',
+                  menuCode: 101100,
+                  createTime: null,
+                  updateTime: null,
+                  roleId: null
+                }
+              ],
+              roleId: null
+
             },
             {
               path: '/product-version-history',
               name: '产品历史版本',
-              icon: 'icon-git'
+              icon: 'icon-git',
               // component: ProductVersionHistory
+              code: '101100产品历史版本',
+              status: null,
+              menuCode: 101100,
+              parentMenuCode: 101,
+              sortCode: null,
+              createTime: null,
+              updateTime: null,
+              children: [],
+              functions: [
+                {
+                  name: '查看',
+                  code: '9查看',
+                  status: null,
+                  functionCode: 9,
+                  functionEnName: 'view',
+                  functionUrl: '',
+                  menuCode: 101100,
+                  createTime: null,
+                  updateTime: null,
+                  roleId: null
+                },
+                {
+                  name: '查询',
+                  code: '查询',
+                  status: null,
+                  functionCode: 9,
+                  functionEnName: 'search',
+                  functionUrl: '',
+                  menuCode: 101100,
+                  createTime: null,
+                  updateTime: null,
+                  roleId: null
+                },
+                {
+                  name: '修改',
+                  code: '9修改',
+                  status: null,
+                  functionCode: 9,
+                  functionEnName: 'edit',
+                  functionUrl: '',
+                  menuCode: 101100,
+                  createTime: null,
+                  updateTime: null,
+                  roleId: null
+                },
+                {
+                  name: '删除',
+                  code: '9删除',
+                  status: null,
+                  functionCode: 9,
+                  functionEnName: 'remove',
+                  functionUrl: '',
+                  menuCode: 101100,
+                  createTime: null,
+                  updateTime: null,
+                  roleId: null
+                }
+              ],
+              roleId: null
+
             }
-          ]
+          ],
+          functions: []
         },
         {
           name: '版权管理',
@@ -222,11 +285,11 @@ const template = {
                   roleId: null
                 },
                 {
-                  name: 'jenkins',
-                  code: '10jenkins',
+                  name: '审批',
+                  code: '10审批',
                   status: null,
                   functionCode: 10,
-                  functionEnName: 'jenkins',
+                  functionEnName: 'approve',
                   functionUrl: '',
                   menuCode: 101100,
                   createTime: null,
@@ -234,47 +297,11 @@ const template = {
                   roleId: null
                 },
                 {
-                  name: '创建流水线',
-                  code: '11创建流水线',
+                  name: '查询',
+                  code: '11查询',
                   status: null,
                   functionCode: 11,
-                  functionEnName: 'createpipline',
-                  functionUrl: '',
-                  menuCode: 101100,
-                  createTime: null,
-                  updateTime: null,
-                  roleId: null
-                },
-                {
-                  name: '构建记录',
-                  code: '12构建记录',
-                  status: null,
-                  functionCode: 12,
-                  functionEnName: 'record',
-                  functionUrl: '',
-                  menuCode: 101100,
-                  createTime: null,
-                  updateTime: null,
-                  roleId: null
-                },
-                {
-                  name: '节点管理',
-                  code: '13节点管理',
-                  status: null,
-                  functionCode: 13,
-                  functionEnName: 'nodesManage',
-                  functionUrl: '',
-                  menuCode: 101100,
-                  createTime: null,
-                  updateTime: null,
-                  roleId: null
-                },
-                {
-                  name: '删除流水线',
-                  code: '80删除流水线',
-                  status: null,
-                  functionCode: 80,
-                  functionEnName: 'deletePipeline',
+                  functionEnName: 'search',
                   functionUrl: '',
                   menuCode: 101100,
                   createTime: null,
@@ -298,11 +325,11 @@ const template = {
               children: [],
               functions: [
                 {
-                  name: '审批',
-                  code: '77审批',
+                  name: '查询',
+                  code: '77查询',
                   status: null,
                   functionCode: 77,
-                  functionEnName: 'approval',
+                  functionEnName: 'search',
                   functionUrl: '',
                   menuCode: 101102,
                   createTime: null,
@@ -315,6 +342,42 @@ const template = {
                   status: null,
                   functionCode: 79,
                   functionEnName: 'view',
+                  functionUrl: '',
+                  menuCode: 101102,
+                  createTime: null,
+                  updateTime: null,
+                  roleId: null
+                },
+                {
+                  name: '删除',
+                  code: '79删除',
+                  status: null,
+                  functionCode: 79,
+                  functionEnName: 'remove',
+                  functionUrl: '',
+                  menuCode: 101102,
+                  createTime: null,
+                  updateTime: null,
+                  roleId: null
+                },
+                {
+                  name: '下载Lisence',
+                  code: '79下载Lisence',
+                  status: null,
+                  functionCode: 79,
+                  functionEnName: 'downLoad',
+                  functionUrl: '',
+                  menuCode: 101102,
+                  createTime: null,
+                  updateTime: null,
+                  roleId: null
+                },
+                {
+                  name: '查看版权详情',
+                  code: '79查看版权详情',
+                  status: null,
+                  functionCode: 79,
+                  functionEnName: 'viewVersionInfo',
                   functionUrl: '',
                   menuCode: 101102,
                   createTime: null,

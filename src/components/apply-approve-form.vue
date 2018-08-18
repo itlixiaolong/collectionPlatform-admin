@@ -124,14 +124,14 @@ export default {
     width: 50% !important;
   }
   .btn-wrapper {
-    width: 20%;
+    width: 100px;
     margin-top: 50px;
     margin-left: 450px;
     display: flex;
     justify-content: space-around;
-    .el-button {
-      width: 30%;
-    }
+    // .el-button {
+    //   width: 30%;
+    // }
   }
 }
 </style>

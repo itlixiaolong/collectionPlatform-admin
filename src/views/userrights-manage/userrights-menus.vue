@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tree-wrapper">
     <tree
       v-if="menuList.length > 0"
       :data-list="menuList"
@@ -30,8 +30,8 @@ export default {
         showCheckbox: false,
         expandOnClickNode: true,
         DailogTitle: '菜单管理',
-        nodeKey: 'code',
-        defaultExpandKeys: ['1IEP集成效率平台'],
+        nodeKey: 'path',
+        defaultExpandKeys: ['/home'],
         indent: 25,
         updateText: ['name', 'path'],
         showText: ['name', 'path'],
@@ -110,4 +110,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.tree-wrapper{
+  height:100%;
+  overflow-y: auto;
+}
 </style>

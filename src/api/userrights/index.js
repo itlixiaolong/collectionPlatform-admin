@@ -1,7 +1,7 @@
 import { axios } from '../config'
 // 请求用户权限的tree数据,包括菜单权限和功能权限
 export function getUserRightsTreeData (params) {
-  return axios.get('/menu/tree', { params })
+  return axios.get('/tree', { params })
 }
 
 /* 菜单管理页面 */
